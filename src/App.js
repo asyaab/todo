@@ -29,8 +29,8 @@ function App() {
         id: tasks.length !== 0 ? tasks.length : 0,
         title: value,
         done: false,
-      });
-      return [...tasks];
+      })
+      return tasks;
     });
   };
 

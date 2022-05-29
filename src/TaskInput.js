@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Input, Button } from 'antd';
 
-export default function TaskInput({ addNewTask, editTask, value, setValue }) {
-  
+export default function TaskInput({ addNewTask, value, setValue }) {
+
+  const inputRef = useRef()
+
+  useEffect(() => {
+    inputRef.current.focus()
+  })
 
   const addTask = () => {
     if (value) {
       addNewTask(value);
+      setValue('');
     }
-    setValue('');
   };
 
   const handleEnter = (e) => {
@@ -30,9 +35,10 @@ export default function TaskInput({ addNewTask, editTask, value, setValue }) {
         value={value}
         onChange={(e) => setValue(e.target.value)}
         onKeyPress={handleEnter}
+        ref={inputRef}
       />
       <Button
-        onClick={() => addTask()}
+        onClick={addTask}
         type="primary"
         style={{
           backgroundColor: 'rgb(0, 150, 153)',
