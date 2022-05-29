@@ -1,65 +1,76 @@
-import { useState } from "react";
-import Task from "./Task";
-import TaskInput from "./TaskInput";
+import { React, useState } from 'react';
+import Task from './Task';
+import TaskInput from './TaskInput';
 
 function App() {
 
   const [tasks, setTasks] = useState([
-    { id:0, title:'Create app', done: false,},
-    { id:1, title:'Shopping', done: true,},
-    { id:2, title:'Cooking', done: false,},
-  ])
+    { id: 0, title: 'Create app', done: false },
+    { id: 1, title: 'Shopping', done: false },
+    { id: 2, title: 'Cooking', done: false },
+  ]);
 
-  const activeTasks = tasks.filter(task => !task.done)
-  const doneTasks = tasks.filter(task => task.done)
+  const [value, setValue] = useState('');
+
+  const activeTasks = tasks.filter((task) => !task.done);
+  const doneTasks = tasks.filter((task) => task.done);
 
   const doneTask = (id) => {
-    const index = tasks.map(task => task.id).indexOf(id)
-    setTasks(tasks => {
-     tasks[index].done = true
-     return [...tasks]
-    })
-  }
+    setTasks([...tasks.map(task => task.id === id ? {...task, done: !task.done} : {...task})])
+  };
 
   const deleteTask = (id) => {
-    const index = tasks.map(task => task.id).indexOf(id)
-    setTasks(tasks => {
-      tasks = tasks.filter(task => task.id !== id)
-      return [...tasks]
-    })
-  }
+    setTasks([...tasks.filter(task => task.id !== id)]);
+  };
 
   const addNewTask = (value) => {
-    setTasks(tasks => {
+    setTasks((tasks) => {
       tasks.push({
-        id:tasks.length !== 0 ? tasks.length : 0,
+        id: tasks.length !== 0 ? tasks.length : 0,
         title: value,
-        done: false
-      })
-      return [...tasks]
-    })
-  }
+        done: false,
+      });
+      return [...tasks];
+    });
+  };
+
+
+  const editTask = (id) => {
+    setTasks([...tasks.filter(task => task.id !== id)]);
+    
+    setValue([...tasks.map(task => task.id === id ? task.title : '')])
+  };
+
 
   return (
     <div className="main_container">
       <div className="greeting">
         <h1>Hey! What's the plan for today?</h1>
-        <TaskInput addNewTask={addNewTask}/>
+        <TaskInput 
+          addNewTask={addNewTask} 
+          editTask={editTask}
+          value={value}
+          setValue={setValue}
+        />
       </div>
       <div className="App">
-      {activeTasks.length
-      ? <h2 className="main_title">Active tasks: {activeTasks.length}</h2>
-      : <h2 className="main_title">Good job!</h2>}
-      {[...activeTasks, ...doneTasks].map(task => (
-        <Task 
-          className='task_list'
-          task={task} 
-          key={task.id} 
-          doneTask={() => doneTask(task.id)} 
-          deleteTask={() => deleteTask(task.id)}/>
-      ))}
+        {activeTasks.length ? (
+          <h2 className="main_title">Active tasks: {activeTasks.length}</h2>
+        ) : (
+          <h2 className="main_title">Good job!</h2>
+        )}
+        {[...activeTasks, ...doneTasks].map((task) => (
+          <Task
+            className="task_list"
+            task={task}
+            key={task.id}
+            editTask = {() => editTask(task.id)}
+            deleteTask = {() => deleteTask(task.id)}
+            doneTask={() => doneTask(task.id)}
+          />
+        ))}
       </div>
-      <div className="bg"/>
+      <div className="bg" />
     </div>
   );
 }

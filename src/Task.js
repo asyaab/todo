@@ -1,20 +1,22 @@
-import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
+import { Checkbox, Button } from 'antd';
+import { EditOutlined, CloseOutlined } from '@ant-design/icons';
 
-export default function Task({task, doneTask, deleteTask}) {
+export default function Task({ task, doneTask, deleteTask, editTask }) {
 
-    const ActionButton = () => (
-        <div>{
-        !task.done 
-        ? <p><CheckOutlined onClick={doneTask} style={{color:'green'}}/></p> 
-        : <p><CloseOutlined className='icon_close' onClick={deleteTask} style={{color:'#6c6c6c50'}}/></p>}</div>
-    )
-
-    const className = 'task ' + (task.done ? 'task-done' : '')
+  const className = 'task ' + (task.done ? 'task-done' : '');
 
   return (
     <div className={className}>
-        <p className='task-title'>{task.title}</p>
-        <ActionButton/>
+      <Checkbox onChange={doneTask}>
+        <p className="task-title">{task.title}</p>
+      </Checkbox>
+        <div className='task_icons'>
+          {!task.done
+          ? <EditOutlined onClick={editTask} style={{ fontSize: 16, cursor:'pointer' }} />
+          : null
+          }
+          <CloseOutlined onClick={deleteTask} style={{ fontSize: 16, cursor:'pointer' }} />
+        </div>
     </div>
-  )
+  );
 }

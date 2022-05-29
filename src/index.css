@@ -22,7 +22,7 @@ code {
 }
 
 .App {
-  margin: 0 auto;
+  margin: auto;
   width: 500px;
   border-radius: 10px;
   box-shadow: 0 3px 15px #0000001a;
@@ -37,6 +37,7 @@ code {
   margin: 5px;
   border-radius: 5px;
   justify-content: space-between;
+  align-items: center;
 }
 
 .task:hover {
@@ -56,6 +57,13 @@ code {
 .task-done p {
   color: #6c6c6c50;
   text-decoration: line-through;
+}
+
+.task_icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
 }
 
 
@@ -92,7 +100,7 @@ h2.main_title {
 }
 
 .main_container {
-  height: 100vh;
+  padding-bottom: 20vh;
 }
 
 .bg {
@@ -104,3 +112,4 @@ h2.main_title {
   height: 100vh;
   background: url('../public/1.jpg') 100%/cover;
 }
+
