@@ -16,11 +16,11 @@ function App() {
   const doneTasks = tasks.filter((task) => task.done);
 
   const doneTask = (id) => {
-    setTasks([...tasks.map(task => task.id === id ? {...task, done: !task.done} : {...task})])
+    setTasks(tasks.map(task => task.id === id ? {...task, done: !task.done} : {...task}))
   };
 
   const deleteTask = (id) => {
-    setTasks([...tasks.filter(task => task.id !== id)]);
+    setTasks(tasks.filter(task => task.id !== id));
   };
 
   const addNewTask = (value) => {
@@ -36,9 +36,7 @@ function App() {
 
 
   const editTask = (id) => {
-    setTasks([...tasks.filter(task => task.id !== id)]);
-    
-    setValue([...tasks.map(task => task.id === id ? task.title : '')])
+    setValue(tasks.find(task => task.id === id).title)
   };
 
 
@@ -48,7 +46,6 @@ function App() {
         <h1>Hey! What's the plan for today?</h1>
         <TaskInput 
           addNewTask={addNewTask} 
-          editTask={editTask}
           value={value}
           setValue={setValue}
         />

@@ -1,4 +1,4 @@
-import { Checkbox, Button } from 'antd';
+import { Checkbox} from 'antd';
 import { EditOutlined, CloseOutlined } from '@ant-design/icons';
 
 export default function Task({ task, doneTask, deleteTask, editTask }) {
