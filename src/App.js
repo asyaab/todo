@@ -24,19 +24,20 @@ function App() {
   };
 
   const addNewTask = (value) => {
-    setTasks((tasks) => {
-      tasks.push({
-        id: tasks.length !== 0 ? tasks.length : 0,
-        title: value,
-        done: false,
-      })
-      return tasks;
-    });
+    setTasks(
+      [...tasks,
+        {
+          id: tasks.length !== 0 ? tasks.length+Math.random() : 0,
+          title: value,
+          done: false,
+        }
+      ]);
   };
 
 
   const editTask = (id) => {
     setValue(tasks.find(task => task.id === id).title)
+    setTasks([...tasks.filter(task => task.id !== id)])
   };
 
 

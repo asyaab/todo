@@ -19,6 +19,7 @@ export default function TaskInput({ addNewTask, value, setValue }) {
   const handleEnter = (e) => {
     if (e.key === 'Enter') {
       addTask();
+      e.preventDefault()
     }
   };
 
@@ -34,7 +35,7 @@ export default function TaskInput({ addNewTask, value, setValue }) {
         placeholder="Add a new task"
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        onKeyPress={handleEnter}
+        onKeyDownCapture={handleEnter}
         ref={inputRef}
       />
       <Button
