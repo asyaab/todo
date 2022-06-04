@@ -11,9 +11,8 @@ export default function Task({ task, doneTask, deleteTask, editTask }) {
         <p className="task-title">{task.title}</p>
       </Checkbox>
         <div className='task_icons'>
-          {!task.done
-          ? <EditOutlined onClick={editTask} style={{ fontSize: 16, cursor:'pointer' }} />
-          : null
+          if(!task.done){
+            <EditOutlined onClick={editTask} style={{ fontSize: 16, cursor:'pointer' }} />
           }
           <CloseOutlined onClick={deleteTask} style={{ fontSize: 16, cursor:'pointer' }} />
         </div>
